@@ -5,6 +5,7 @@
 
 ## Description
 My implitation of Owl Tech's number base conversion utuility.
+My main file had to run methods from convert to impliment bit conversions by either division or subtraction also printing out tables.
 
 ## Build Insturctions 
 '''bash
@@ -13,6 +14,15 @@ gcc -o convert convert.c main.c
 '''
 
 ##Test Results 
+Test 1: div_convert(104, 5) -> Expected: "404", Got: "404" [PASS]
+Test 2: div_convert(156, 8) -> Expected: "234", Got: "234" [PASS]
+Test 3: div_convert(255, 16) -> Expected: "FF", Got: "FF" [PASS]
+....
 Summary: 100/100 tests passed
 
 ## Notes
+This was my first time coding with c so i had quite a lot of challanges. Firstly it was how
+i had to open my files and everything from the terminal. this was very confusing because i had to 
+look up the commands that would open and link up my files and all. then bit manipulation was also quite some work because of the many numbers. then
+for the other stuff it was a bit light as i knew how to do the calculations and knew the methods but specific symbols and characters where confusing 
+from time to time.
