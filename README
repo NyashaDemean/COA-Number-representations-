@@ -1,0 +1,15 @@
+# CS 3503 Assignment 1 - Number Base Conversion
+
+## Author
+[Nyasha Muzerengi]
+
+## Description
+My implitation of Owl Tech's number base conversion utuility.
+
+## Build Insturctions 
+'''bash
+gcc -o convert convert.c main.c 
+./convert 
+'''
+
+##Test Results 
