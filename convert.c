@@ -3,56 +3,64 @@
 #include <string.h>
 
 
-// convert number to string in base (2-16) using divsion algorithm
-void div_convert(uint32_t n, int base, char *out){
+// Convert number to string in base (2-16) using division algorithm
+void div_convert(uint32_t n, int base, char *out) {
     char digits[] = "0123456789ABCDEF";
-    char temp[65];
+    char buffer[65];
     int pos = 0;
 
-    //handle case of zero
-    if(n==0){
-        strcpy(out, "0");
-        return;
-    }
-    //get remainders from right to left
-    while(n>0){
-        temp[pos] = digits[n % base];
-        n = n/base;
-        pos++;
-    }
-    //reverse the remainders
-    int j;
-    for(j=0; j<pos; j++){
-        out[j] = temp[pos - j - 1];
-    }
-    out[pos] = '\0';
-}
-
-void sub_convert(uint32_t n, int base, char *out){
-    char digits[] = "0123456789ABCDEF";
-    char temp[65];
-    int pos = 0;
-
+    // Handle the zero case
     if (n == 0) {
         strcpy(out, "0");
         return;
     }
 
-    uint32_t power = 1;
-    while(power <= n/base){
-        power = power * base;
-    }
-
-    while(power > 0){
-        temp[pos] = digits[n/power];
-        n = n%power;
+    // Ectract digits from right to left
+    while (n > 0){
+        buffer[pos] = digits[n % base];
         pos++;
-        power= power/base;
+        n /= base;
     }
 
-    temp[pos] = '\0';
-    strcpy(out,temp);
+    // Reverse into out
+    int j;
+    for (j = 0; j < pos; j++){
+        out[j] = buffer[pos - j - 1];
+    }
+    out[pos] = '\0';
 }
+
+
+// Convert number to string in base (2-16) using subtraction of powers
+void sub_convert(uint32_t n, int base, char *out) {
+    char digits[] = "0123456789ABCDEF";
+    char buffer[65];
+    int pos = 0;
+
+    // Handle the zero case
+    if (n == 0) {
+        strcpy(out, "0");
+        return;
+    }
+
+    //Find the largest power of the base <= n
+    uint32_t power = 1;
+    while (power <= n / base){
+        power *= base;
+    }
+
+    while (power > 0){
+        int digit = n / power;
+        buffer[pos] = digits[digit];
+        pos++;
+        n -= digit * power;
+        power /= base;
+    }
+
+    buffer[pos] = '\0';
+    strcpy(out, buffer);
+}
+
 
 void print_tables(uint32_t n){
     char bin[65], oct[65], dec[65], hex[65];
@@ -79,6 +87,5 @@ void print_tables(uint32_t n){
     sprintf(dec, "%u", masked);
     div_convert(masked, 16, hex);
     printf("AND with 0xFF: Binary=%s Octal=%s Decimal=%s Hex=%s\n", bin, oct, dec, hex);
-
 
 }
